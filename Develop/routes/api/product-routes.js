@@ -7,13 +7,13 @@ const { Product, Category, Tag, ProductTag } = require('../../models');
 router.get('/', async (req, res) => {
   try {
     const allProducts = await Product.findAll({
-      include: {
-        include: [{ model: Category }, { model: Tag }],
-        attributes: ['id','catergory_name', 'tag_name'], // ask this
-      }
+      include: [Category, { model: Tag, through: ProductTag }],
+      // ask this
+
     });
     return res.status(200).json(allProducts);
-  }catch(err) {
+  } catch (err) {
+    console.log('err', err)
     res.status(500).json(err);
   }
   // find all products
@@ -24,13 +24,10 @@ router.get('/', async (req, res) => {
 router.get('/:id', async (req, res) => {
   try {
     const allProducts = await Product.findByPk({
-      include: {
-        include: [{ model: Category }, { model: Tag }],
-        attributes: ['id','catergory_name', 'tag_name'], // ask this
-      }
+      include: [Category, { model: Tag, through: ProductTag }],
     });
     return res.status(200).json(allProducts);
-  }catch(err) {
+  } catch (err) {
     res.status(500).json(err);
   }
   // find a single product by its `id`
@@ -120,10 +117,10 @@ router.delete('/:id', async (req, res) => {
       }
     })
     res.status(200).json('product has been removed', allProducts);
-    
-    }catch (err) {
-      res.status(500).json(err);
-    }
+
+  } catch (err) {
+    res.status(500).json(err);
+  }
 });
 
 module.exports = router;
