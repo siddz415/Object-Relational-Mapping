@@ -9,7 +9,7 @@ router.get('/', async (req, res) => {
       include: [Product]
     });
     return res.status(200).json(categoryData);
-  }catch(err) {
+  } catch (err) {
     console.log('err', err);
     res.status(500).json(err);
   }
@@ -20,11 +20,11 @@ router.get('/', async (req, res) => {
 router.get('/:id', async (req, res) => {
   // find one category by its `id` value
   try {
-    const categoryData = await Category.findByPk({
-      include: [Product],
+    const categoryData = await Category.findByPk(req.params.id, {
+      include: [Product]
     });
     return res.status(200).json(categoryData);
-  }catch(err) {
+  } catch (err) {
     res.status(500).json(err);
   }
   // be sure to include its associated Products
@@ -32,10 +32,10 @@ router.get('/:id', async (req, res) => {
 
 router.post('/', async (req, res) => {
   // create a new category
-  try{
+  try {
     const categoryData = await Category.create(req.body);
-    return res.statusMessage(200).json(categoryData);
-  }catch(err) {
+    return res.status(200).json(categoryData);
+  } catch (err) {
     res.status(400).json(err);
   }
 });
@@ -51,7 +51,7 @@ router.put('/:id', async (req, res) => {
     });
     res.status(200).json(categoryData);
   }
-  catch(err) {
+  catch (err) {
     res.status(400).json(err);
   }
 
@@ -64,12 +64,12 @@ router.delete('/:id', async (req, res) => {
         id: req.params.id,
       }
     })
-    res.status(200).json('category has been removed', categoryData);
-    
-    }catch (err) {
-      res.status(500).json(err);
-    }
-  
+    res.status(200).json('category has been removed');
+
+  } catch (err) {
+    res.status(500).json(err);
+  }
+
   // delete a category by its `id` value
 });
 

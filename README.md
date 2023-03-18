@@ -23,4 +23,4 @@ Express.js API and configure it to use Sequelize to interact with a MySQL databa
 https://github.com/siddz415/Object-Relational-Mapping
 
 ## video
-https://drive.google.com/file/d/10KNvC-HMHD4OTdlePExRtmQBT0fjKFpT/view
+https://drive.google.com/file/d/1KZqC0Rb9khUgru-2Y4Ma6LhsH-nPif_9/view

@@ -22,7 +22,7 @@ router.get('/', async (req, res) => {
 
 router.get('/:id', async (req, res) => {
   try {
-    const tags = await Tag.findByPk({
+    const tags = await Tag.findByPk(req.params.id,{
       include: {
         model: Product,
         through: ProductTag,
@@ -40,7 +40,7 @@ router.get('/:id', async (req, res) => {
 router.post('/', async (req, res) => {
   try {
     const tags = await Tag.create(req.body);
-    return res.statusMessage(200).json(tags);
+    return res.status(200).json(tags);
   } catch (err) {
     res.status(400).json(err);
   }
@@ -72,7 +72,7 @@ router.delete('/:id', async (req, res) => {
         id: req.params.id,
       }
     })
-    res.status(200).json('Tag has been removed', tags);
+    res.status(200).json('Tag has been removed');
 
   } catch (err) {
     res.status(500).json(err);
